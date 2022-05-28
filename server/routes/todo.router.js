@@ -51,3 +51,27 @@ todoRouter.get('/', (req, res) => {
     })
 
 module.exports = todoRouter;
+
+// delete method to remove from DB 
+todoRouter.delete('/:id', (req,res) => {
+    let taskId = req.params.id;
+    console.log('in delete /id', taskId);
+
+    const sqlQuery = `
+    DELETE FROM "todo"
+    WHERE id = $1;
+    `
+
+    const sqlParams = [
+        taskId,
+    ]
+
+    pool.query(sqlQuery, sqlParams)
+    .then(() => {
+        res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log(`DELETE failed: ${err}`);
+      res.sendStatus(500);
+    })
+})

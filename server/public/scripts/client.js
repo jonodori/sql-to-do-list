@@ -3,6 +3,7 @@ $(document).ready(handleReady)
 function handleReady(){
     $('#addBtn').on('click', addTask);
     getTask(); // shows tasks 
+    $('#viewTasks').on('click', '.deleteBtn', deleteTasks); 
 }
 
 
@@ -46,13 +47,13 @@ function getTask(){
 }
 
 function displayTask(tasks){
-   
+   $('#viewTasks').empty(); //clear duplicates 
 
     for (task of tasks) {
         let date = new Date(task.when)
 
         $('#viewTasks').append(`
-        <tr>
+        <tr data-task-id = ${task.id}>
           <td>${task.task}</td>
           <td>${task.details}</td>
           <td>${date.toLocaleDateString()}</td>
@@ -66,5 +67,24 @@ function displayTask(tasks){
       </tr>
         `);
       }
-
 }
+
+function deleteTasks(){
+    let tr = $(this).parents('tr');
+    let taskId = tr.data('task-id');
+
+    console.log('in deleteTasks()', taskId);
+
+    $.ajax({
+        method: 'DELETE',
+        url:  `/todo/${taskId}`,
+      })
+          .then(() =>{
+            console.log('DELETE /tasks succeeded')
+            getTask();
+          })
+          .catch((err) => {
+            alert('Failed to delete task. Sorry.')
+            console.log('DELETE /tasks failed:', err)
+          })
+};
