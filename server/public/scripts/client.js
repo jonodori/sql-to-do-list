@@ -66,5 +66,4 @@ function displayTask(tasks){
       </tr>
         `);
       }
-
 }
