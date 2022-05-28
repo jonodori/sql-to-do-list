@@ -12,13 +12,29 @@
     <header>
         <h1>To do App</h1>
     </header>
-    <main id = "viewTasks">
-        <input type ="text" placeholder="tasks" id="tasks-id">
-        <input type ="text" placeholder="details" id="details-id">
-        <input type ="date" placeholder="date" id="date-id">
+    <main>
+        <section>
+        <input type ="text" placeholder="tasks" id="tasks-id" class="clear">
+        <input type ="text" placeholder="details" id="details-id" class="clear">
+        <input type ="date" placeholder="date" id="date-id" class="clear">
         <!-- <input type ="text" placeholder="completed" id="completed-id"> -->
         <button type ="button" id="addBtn">add task</button>
-        
+        </section>
+        <section>
+            <h2>All Tasks</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Task</th>
+                <th>Details</th>
+                <th>When</th>
+                <th>Completed</th>
+            </tr>
+            </thead>
+            <tbody id="viewTasks">
+            </tbody>
+        </table>
+        </section>
     </main>
 </body>
 </html>
