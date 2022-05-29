@@ -55,11 +55,11 @@ function displayTask(tasks){
         let date = new Date(task.when)
 
         $('#viewTasks').append(`
-        <tr data-task-id = ${task.id}>
+        <tr id = "row-${task.id}" data-task-id = ${task.id}>
           <td>${task.task}</td>
           <td>${task.details}</td>
           <td>${date.toLocaleDateString()}</td>
-          <td>${task.completed}</td>
+          <td data-status = "${task.completed}" id = "td-${task.id}">${task.completed}</td> 
           <td data-completed-id="${task.completed}">
           <button type ="submit" class ="markCompleteBtn btn btn-success ms-1">Complete</button>
           </td>
@@ -69,7 +69,14 @@ function displayTask(tasks){
           </td>
       </tr>
         `);
+
+        // highlights the tr green, if completed status is true. Had help from Al Camara
+        if ($(`#td-${task.id}`).data('status') === true) { // targets the id ${task.id} 
+          $(`#row-${task.id}`).addClass('highlight');
+          $(`#row-${task.id}`).css('background-color','green')// targets the tr 
+        }
       }
+
 }
 
 function deleteTasks(){
@@ -97,10 +104,14 @@ function updateComplete(){
     let td = $(this).parents('td');
     let completed = td.data('completed-id');
    
-    console.log (completed);
+   
     let updateStatus = {
         completed: completed
     };
+
+
+
+    console.log(completed);
 
 //     if (updateStatus.completed === 'true'){
 //         updateStatus.completed = false;
