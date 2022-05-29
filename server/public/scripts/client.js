@@ -61,10 +61,11 @@ function displayTask(tasks){
           <td>${date.toLocaleDateString()}</td>
           <td>${task.completed}</td>
           <td data-completed-id="${task.completed}">
-          <button class ="markCompleteBtn">Complete</button>
+          <button type ="submit" class ="markCompleteBtn btn btn-success ms-1">Complete</button>
           </td>
           <td>
-          <button class ="deleteBtn">Delete</button>
+        
+          <button type ="submit" class ="deleteBtn btn btn-danger">Delete</button>
           </td>
       </tr>
         `);
