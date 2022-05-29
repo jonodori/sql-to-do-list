@@ -28,7 +28,7 @@ function addTask(){
         console.log(response)
     }).catch(function(error){
         console.log('error in todo post', error);
-        alert('Error adding task');
+        alert('Add or select a Due Date!');
     });
 
      //runs the get 
@@ -73,7 +73,7 @@ function displayTask(tasks){
         // highlights the tr green, if completed status is true. Had help from Al Camara
         if ($(`#td-${task.id}`).data('status') === true) { // targets the id ${task.id} 
           $(`#row-${task.id}`).addClass('highlight');
-          $(`#row-${task.id}`).css('background-color','green')// targets the tr 
+          $(`#row-${task.id}`).css('background-color','#3cb371')// targets the tr 
         }
       }
 
