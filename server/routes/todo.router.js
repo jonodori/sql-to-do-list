@@ -79,8 +79,12 @@ todoRouter.delete('/:id', (req,res) => {
 
 // PUT method 
 todoRouter.put('/:id', (req, res) => {
-    console.log('updating books', req.params.id, req.body)
+    console.log('updating todo', req.params.id, req.body)
   
+    if (req.body.completed === 'true'){
+         req.body.completed = false;
+    } else {req.body.completed = true};
+
     const sqlQuery =`
       UPDATE "todo"
       SET "completed" = $2
@@ -93,8 +97,8 @@ todoRouter.put('/:id', (req, res) => {
       ];
   
       pool.query(sqlQuery, sqlParams)
-          .then(() => {
-              res.sendStatus(200);
+          .then(() => {  
+            res.sendStatus(200)
           })
           .catch((err) => {
               console.log(`PUT /todo/${req.params.id} failed, ${err}`);

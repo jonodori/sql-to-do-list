@@ -24,13 +24,14 @@ function addTask(){
       url: '/todo',
       data: taskToSend
     }).then(function(response){
+        getTask();
         console.log(response)
     }).catch(function(error){
         console.log('error in todo post', error);
         alert('Error adding task');
     });
 
-    getTask(); //runs the get 
+     //runs the get 
 
     // $('.clear').val(''); // clear inputs
 };
@@ -59,7 +60,7 @@ function displayTask(tasks){
           <td>${task.details}</td>
           <td>${date.toLocaleDateString()}</td>
           <td>${task.completed}</td>
-          <td>
+          <td data-completed-id="${task.completed}">
           <button class ="markCompleteBtn">Complete</button>
           </td>
           <td>
@@ -92,9 +93,18 @@ function deleteTasks(){
 
 function updateComplete(){
     const statusId = $(this).parents('tr').data('task-id');
-    const updateStatus = {
-        completed: true
+    let td = $(this).parents('td');
+    let completed = td.data('completed-id');
+   
+    console.log (completed);
+    let updateStatus = {
+        completed: completed
     };
+
+//     if (updateStatus.completed === 'true'){
+//         updateStatus.completed = false;
+//    } else {updateStatus.completed = true};
+    
     console.log(updateStatus);
 
     $.ajax({
@@ -102,13 +112,13 @@ function updateComplete(){
         url: `todo/${statusId}`,
         data: updateStatus
       })
-        .then(res => {
+        .then((res) => {
           console.log('PUT success');
       
           //Getting update state from server
           getTask();
         })
-        .catch(err => {
+        .catch((err) => {
           alert('it doesn\'t seem to be working');
           console.log('PUT failed:', err)
         })
