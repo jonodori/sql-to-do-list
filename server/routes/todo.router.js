@@ -74,4 +74,34 @@ todoRouter.delete('/:id', (req,res) => {
       console.log(`DELETE failed: ${err}`);
       res.sendStatus(500);
     })
-})
+});
+
+
+// PUT method 
+todoRouter.put('/:id', (req, res) => {
+    console.log('updating todo', req.params.id, req.body)
+  
+    if (req.body.completed === 'true'){
+         req.body.completed = false;
+    } else {req.body.completed = true};
+
+    const sqlQuery =`
+      UPDATE "todo"
+      SET "completed" = $2
+      WHERE id = $1;
+      `;
+  
+      const sqlParams = [
+        req.params.id,
+        (req.body.completed)
+      ];
+  
+      pool.query(sqlQuery, sqlParams)
+          .then(() => {  
+            res.sendStatus(200)
+          })
+          .catch((err) => {
+              console.log(`PUT /todo/${req.params.id} failed, ${err}`);
+              res.sendStatus(500);
+          });
+  });
