@@ -81,9 +81,14 @@ todoRouter.delete('/:id', (req,res) => {
 todoRouter.put('/:id', (req, res) => {
     console.log('updating todo', req.params.id, req.body)
   
+
+    // had help from Joey 
     if (req.body.completed === 'true'){
          req.body.completed = false;
     } else {req.body.completed = true};
+
+    console.log(req.body.completed)
+
 
     const sqlQuery =`
       UPDATE "todo"
